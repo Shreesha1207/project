@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url('C:/Users/SHREESHA012/OneDrive/Desktop/math.jpeg'); /* Specify the correct path to your image */
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the background image */
+        background-repeat: no-repeat;
+    }
+    .container {
+        width: 400px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: #ccc;
+        display: none; /* Initially hide the container */
+    }
+    .question {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .options label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .result {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    button {
+        background-color: green;
+    }
+    input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 30px;
+        font-size: large;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="quizContainer">
+    <div id="quiz">
+        <div class="question"></div>
+        <div class="options"></div>
+        <button onclick="checkAnswer()">Submit</button>
+        <div class="result"></div>
+    </div>
+</div>
+<div id="nameContainer">
+    <input type="text" id="userName" placeholder="Enter your name">
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Who discovered gravity",
+            options: ["Kohli", "Einstein", "Newton", "Mendeleev"],
+            answer: "Newton"
+        },
+        {
+            question: "Which is the biggest animal on earth",
+            options: ["Whale", "Tiger", "Lion", "Rat"],
+            answer: "Whale"
+        },
+        {
+            question: "Which planet is known as the Red Planet?",
+            options: ["Mars", "Venus", "Jupiter", "Saturn"],
+            answer: "Mars"
+        }
+    ];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    const questionElement = document.querySelector('.question');
+    const optionsElement = document.querySelector('.options');
+    const resultElement = document.querySelector('.result');
+    const quizContainer = document.getElementById('quizContainer');
+    const nameContainer = document.getElementById('nameContainer');
+
+    function loadQuestion() {
+        const currentQuiz = quiz[currentQuestion];
+        questionElement.textContent = currentQuiz.question;
+        optionsElement.innerHTML = '';
+        currentQuiz.options.forEach(option => {
+            const radioBtn = document.createElement('input');
+            radioBtn.type = 'radio';
+            radioBtn.name = 'option';
+            radioBtn.value = option;
+            optionsElement.appendChild(radioBtn);
+            const label = document.createElement('label');
+            label.textContent = option;
+            optionsElement.appendChild(label);
+        });
+    }
+
+    function checkAnswer() {
+        const selectedOption = document.querySelector('input[name="option"]:checked');
+        if (!selectedOption) {
+            resultElement.textContent = "Please select an option.";
+            return;
+        }
+        if (selectedOption.value === quiz[currentQuestion].answer) {
+            correctAnswers++;
+        }
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            const userName = document.getElementById('userName').value;
+            const totalQuestions = quiz.length;
+            const marks = correctAnswers;
+            resultElement.textContent = `${userName}, Your marks: ${marks}/${totalQuestions}`;
+            optionsElement.innerHTML = '';
+            questionElement.textContent = '';
+        }
+    }
+
+    function startQuiz() {
+        const userName = document.getElementById('userName').value;
+        if (userName.trim() === "") {
+            alert("Please enter your name.");
+            return;
+        }
+        quizContainer.style.display = 'block'; // Display the quiz container
+        nameContainer.style.display = 'none'; // Hide the name container
+        loadQuestion();
+    }
+</script>
+
+</body>
+</html>

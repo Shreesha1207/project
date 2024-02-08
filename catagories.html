@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Categories</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        body {
+            flex-direction: column;
+        }
+        h2 {
+            margin: 10px;
+        }
+        button {
+            margin: 10px;
+            background: #fff; /* Set background color for buttons */
+            border: 1px solid #000; /* Add border to buttons */
+            padding: 10px 20px; /* Add padding to buttons */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+        button:hover {
+            background: #000; /* Change background color on hover */
+            color: rgb(84, 203, 179); /* Change text color on hover */
+        }
+    </style>
+</head>
+<body>
+    <h2>Please select the categories for the quiz game.</h2>
+    <div>
+        <button type="button" onclick='location.href="mathquiz.html?category=math"'>Math Quiz</button>
+        <button type="button" onclick='location.href="quiztest.html?category=general"'>General Quiz</button>
+        <button type="button" onclick='location.href="science.html?category=science"'>Science Quiz</button>
+    </div>
+</body>
+</html>
